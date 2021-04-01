@@ -5,8 +5,14 @@ $db = new PDO($dsn, "root", "");
 
 //Suppression du matelas quand on clique sur la croix
 
-$query = $db->prepare("DELETE FROM matelas WHERE id =:id");
+if(isset($_GET["id"])) {
 
-$query->bindValue(":id", $_GET["id"], PDO::PARAM_INT);
+$supp = $db->prepare("DELETE FROM matelas WHERE id = ".id );
+echo " Suppression effectuée";
+header("Location:index.php");
+$supp->execute();
 
-$query-> execute();
+} else {
+    echo " Suppression non effectuée";
+}
+
