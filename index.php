@@ -1,37 +1,41 @@
 <!--------------------------------------- Page d'accueil --------------------------------------------->
 <?php
 
-//Connexion à la BDD marmiton
-$dsn = "mysql:host=localhost;dbname=marmiton";
+$dsn = "mysql:host=localhost;dbname=literie3000";
 $db = new PDO($dsn, "root", "");
 
 
-//Récupérer les recettes de la table recipes
-$query = $db->query("SELECT * FROM recipes");
-$recipes = $query->fetchAll();
+//Récupérer les matelas
+$query = $db->query("SELECT * FROM matelas");
+$matelas = $query->fetchAll();
 
 
 //---------------------------- Affichage --------------------------
 include("tpl/header.php"); 
 ?>
 
-<h1>Nos recettes</h1>
+<h1>Matelas</h1>
 
-<div class="recipes">
-    <!-- Affichages des recettes -->
+<div class="section_matelas">
+
+    <!-- Affichages des matelas -->
     <?php
-    foreach ($recipes as $recipe) {
-
+    foreach ($matelas as $matela) {
     ?>
-        <div class="recipe">
+      
             <div class="recipe_picture">
-                <img src=<?= $recipe["picture"] ?> alt="image">
+            <img src=<?= $matela["picture"] ?> >
             </div>
-            <h2>
-                <a href="recipe.php?id=<?= $recipe["id"] ?>"><?= $recipe["name"] ?></a>
-            </h2>
-            <p>Difficultés : <?= $recipe["difficulty"] ?></p>
-        </div>
+
+            <div class="section_description">
+            <p><?= $matela["marque"] ?></p>
+            <p><?= $matela["nom"] ?></p>
+            <p> <?= $matela["dimension"] ?></p>
+            <!-- Prix -->
+            <p><?= $matela["prix"] ?></p>
+            <p><?=  $matela["reduction"]  ?></p>
+            </div>
+        
     <?php
     }
     ?>
